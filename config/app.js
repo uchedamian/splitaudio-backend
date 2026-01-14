@@ -15,3 +15,4 @@ app.use(require('./middleware/errorHandler'));
 
 module.exports = app;
 app.use("/api/spotify", require("./routes/spotifyRoutes"));
+app.use("/api/apple-music", require("./routes/appleMusicRoutes"));
