@@ -14,3 +14,4 @@ app.use('/api/analytics', require('./routes/analyticsRoutes'));
 app.use(require('./middleware/errorHandler'));
 
 module.exports = app;
+app.use("/api/spotify", require("./routes/spotifyRoutes"));
