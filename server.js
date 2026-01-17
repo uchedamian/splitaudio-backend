@@ -1,5 +1,3 @@
-// server.js
-
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -7,15 +5,9 @@ const { Sequelize } = require("sequelize");
 
 const app = express();
 
-/* =========================
-   MIDDLEWARE
-========================= */
 app.use(cors());
 app.use(express.json());
 
-/* =========================
-   DATABASE (SEQUELIZE)
-========================= */
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
   protocol: "postgres",
@@ -23,27 +15,21 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false
-    }
-  }
+      rejectUnauthorized: false,
+    },
+  },
 });
 
-/* =========================
-   TEST DB CONNECTION
-========================= */
 async function startServer() {
   try {
     await sequelize.authenticate();
     console.log("✅ Database connected");
 
     await sequelize.sync();
-    console.log("✅ Models synced");
+    console.log("✅ Database synced");
 
-    /* =========================
-       ROUTES (ADD LATER)
-    ========================= */
     app.get("/", (req, res) => {
-      res.json({ message: "SplitAudio backend is running 🚀" });
+      res.json({ status: "SplitAudio backend live 🚀" });
     });
 
     const PORT = process.env.PORT || 3000;
@@ -52,7 +38,7 @@ async function startServer() {
     });
 
   } catch (error) {
-    console.error("❌ Server failed to start:", error);
+    console.error("❌ Startup error:", error);
     process.exit(1);
   }
 }
